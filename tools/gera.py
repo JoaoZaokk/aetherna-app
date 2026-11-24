@@ -33,7 +33,7 @@ O QUE VOCÊ ENCONTRA
 • Ordem sem spoiler: o app segue a ordem da obra e avisa quando um episódio está à frente de onde você parou.
 • Player completo: velocidade, voltar 15 s e avançar 30 s, timer de sono e controles na tela bloqueada.
 • Quatro estilos visuais: Cinemateca, Edição, Sinal e Vidro.
-• Interface em português, inglês, alemão e chinês (tradicional e simplificado).
+• Interface e catálogo em português, inglês e alemão.
 
 ÆTHERNA PREMIUM
 No plano grátis você ouve um episódio por vez. Com o Premium você:
@@ -119,7 +119,7 @@ Abra uma issue em {repo}/issues.
     changelog="""# Novidades
 
 ## 1.0
-- Primeira versão: deep dives e debates em áudio, catálogo por categoria, séries agrupadas (anime e mangá, temporadas), ordem sem spoiler, quatro estilos visuais e cinco idiomas.
+- Primeira versão: deep dives e debates em áudio, catálogo por categoria, séries agrupadas (anime e mangá, temporadas), ordem sem spoiler, quatro estilos visuais e três idiomas.
 - Ætherna Premium: baixar episódios, texto sincronizado e vários episódios ao mesmo tempo.
 """,
 )
@@ -140,7 +140,7 @@ WHAT YOU GET
 • Spoiler-free order: the app follows the work's order and warns you when an episode is ahead of where you stopped.
 • A complete player: speed, skip back 15 s and forward 30 s, sleep timer and lock screen controls.
 • Four visual styles: Cinematheque, Edition, Signal and Glass.
-• Interface in Portuguese, English, German and Chinese (Traditional and Simplified).
+• Interface and catalog in Portuguese, English and German.
 
 ÆTHERNA PREMIUM
 On the free plan you listen to one episode at a time. With Premium you:
@@ -226,7 +226,7 @@ Open an issue at {repo}/issues.
     changelog="""# What's new
 
 ## 1.0
-- First release: audio deep dives and debates, catalog by category, grouped series (anime and manga, seasons), spoiler-free order, four visual styles and five languages.
+- First release: audio deep dives and debates, catalog by category, grouped series (anime and manga, seasons), spoiler-free order, four visual styles and three languages.
 - Ætherna Premium: downloads, synchronized text and several episodes at once.
 """,
 )
@@ -247,7 +247,7 @@ WAS DICH ERWARTET
 • Reihenfolge ohne Spoiler: Die App folgt der Reihenfolge des Werks und warnt dich, wenn eine Folge weiter ist als deine Stelle.
 • Vollständiger Player: Geschwindigkeit, 15 s zurück und 30 s vor, Schlaftimer und Steuerung auf dem Sperrbildschirm.
 • Vier Designs: Kinemathek, Ausgabe, Signal und Glas.
-• Oberfläche auf Portugiesisch, Englisch, Deutsch und Chinesisch (traditionell und vereinfacht).
+• Oberfläche und Katalog auf Portugiesisch, Englisch und Deutsch.
 
 ÆTHERNA PREMIUM
 Im kostenlosen Tarif hörst du eine Folge nach der anderen. Mit Premium kannst du:
@@ -333,7 +333,7 @@ Eröffne ein Issue unter {repo}/issues.
     changelog="""# Neuigkeiten
 
 ## 1.0
-- Erste Version: Audio-Deep-Dives und Debatten, Katalog nach Kategorien, gruppierte Reihen (Anime und Manga, Staffeln), Reihenfolge ohne Spoiler, vier Designs und fünf Sprachen.
+- Erste Version: Audio-Deep-Dives und Debatten, Katalog nach Kategorien, gruppierte Reihen (Anime und Manga, Staffeln), Reihenfolge ohne Spoiler, vier Designs und drei Sprachen.
 - Ætherna Premium: Downloads, synchronisierter Text und mehrere Folgen gleichzeitig.
 """,
 )
@@ -552,6 +552,8 @@ _最后更新：{data}_
 """,
 )
 
+# Chinês fica de fora da loja e do README até haver áudio; para liberar, ponha aqui.
+LOJA_ATIVA = ["pt-BR", "en", "de"]
 LOJA_LOCALE = {"pt-BR": "pt-BR", "en": "en-US", "de": "de-DE", "zh-Hant": "zh-Hant", "zh-Hans": "zh-Hans"}
 
 
@@ -574,6 +576,8 @@ def main():
     partes = ["# Ætherna\n",
               "<p align=\"center\"><img src=\"assets/icon.png\" width=\"160\" alt=\"Ætherna\"></p>\n"]
     for lingua, t in T.items():
+        if lingua not in LOJA_ATIVA:
+            continue
         partes.append(f"## {NOMES[lingua]}\n\n{t['readme_intro']}\n\n{t['descricao']}\n\n"
                       f"- [{t['priv_rotulo']}]({url('privacy', lingua)})\n"
                       f"- [{t['termos_rotulo']}]({url('terms', lingua)})\n"
@@ -585,6 +589,8 @@ def main():
 
     loja = {}
     for lingua, t in T.items():
+        if lingua not in LOJA_ATIVA:
+            continue
         d = t["descricao"] + f"\n\n{t['termos_rotulo']}: {url('terms', lingua)}\n{t['priv_rotulo']}: {url('privacy', lingua)}"
         assert len(d) <= 4000 and len(t["subtitulo"]) <= 30 and len(t["promo"]) <= 170 and len(t["palavras"]) <= 100, lingua
         loja[LOJA_LOCALE[lingua]] = dict(subtitle=t["subtitulo"], promotionalText=t["promo"], keywords=t["palavras"],
