@@ -1,0 +1,4 @@
+title: Ætherna
+description: AI-generated audio conversations about books, films, series, anime and history.
+theme: minima
+exclude: [tools, README.md]

@@ -1,0 +1,10 @@
+name: Sugestão / Suggestion / Vorschlag / 建議 / 建议
+description: Uma ideia ou um pedido de obra. / An idea or a request for a work.
+labels: [sugestão]
+body:
+  - type: textarea
+    id: ideia
+    attributes:
+      label: Sugestão / Suggestion
+    validations:
+      required: true
